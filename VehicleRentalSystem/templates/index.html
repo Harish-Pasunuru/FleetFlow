@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <title>FleetFlow | Vehicle Rental Management</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <a href="#dashboard" class="brand">
+                <span class="brand-icon">F</span>
+                <span>
+                    <strong>FleetFlow</strong>
+                    <small>Rental Management</small>
+                </span>
+            </a>
+
+            <p class="menu-label">WORKSPACE</p>
+            <nav>
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">▦ Dashboard</a>
+                <a href="#vehicles" class="nav-link" data-section="vehicles">🚘 Vehicles</a>
+                <a href="#customers" class="nav-link" data-section="customers">👥 Customers</a>
+                <a href="#rentals" class="nav-link" data-section="rentals">🔑 Rentals</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <span class="status-dot"></span>
+                <span>Vehicle Rental System</span>
+                <small>Database dashboard</small>
+                <small id="connection-status">Connecting to server...</small>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">FLEET MANAGEMENT</p>
+                    <h1 id="page-title">Dashboard Overview</h1>
+                </div>
+                <button class="refresh-btn" id="refresh-btn">↻ Refresh data</button>
+            </header>
+
+            <div id="notice" class="notice" hidden role="alert"></div>
+
+            <section id="dashboard-section" class="page-section">
+                <div class="welcome">
+                    <div>
+                        <p class="eyebrow">WELCOME BACK</p>
+                        <h2>Your fleet, at a glance.</h2>
+                        <p>Monitor your vehicles, customers, rentals and revenue.</p>
+                    </div>
+                    <div class="welcome-icon">🚗</div>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-icon blue">🚘</div>
+                        <p>Total Vehicles</p>
+                        <h2 id="total-vehicles">—</h2>
+                        <small>Registered vehicles</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon purple">👥</div>
+                        <p>Total Customers</p>
+                        <h2 id="total-customers">—</h2>
+                        <small>Registered customers</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon orange">🔑</div>
+                        <p>Total Rentals</p>
+                        <h2 id="total-rentals">—</h2>
+                        <small>Rental records</small>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon green">₹</div>
+                        <p>Total Rental Amount</p>
+                        <h2 id="total-revenue">—</h2>
+                        <small>Recorded rental revenue</small>
+                    </article>
+                </div>
+
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Recent Rental Records</h2>
+                            <p>Rental information from your database</p>
+                        </div>
+                        <button class="text-btn" data-go="rentals">View all →</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rental ID</th>
+                                    <th>Customer</th>
+                                    <th>Vehicle</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-rentals">
+                                <tr><td colspan="7" class="empty">Loading rental records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section id="vehicles-section" class="page-section" hidden>
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Vehicle Inventory</h2>
+                            <p>Vehicles stored in your MySQL database</p>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Vehicle ID</th>
+                                    <th>Registration</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Type</th>
+                                    <th>Rental Rate</th>
+                                    <th>Fuel</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vehicles-table">
+                                <tr><td colspan="7" class="empty">Loading vehicles...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section id="customers-section" class="page-section" hidden>
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Customer Directory</h2>
+                            <p>Customer information from MySQL</p>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table">
+                                <tr><td colspan="5" class="empty">Loading customers...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <section id="rentals-section" class="page-section" hidden>
+                <section class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Rental Management</h2>
+                            <p>All recorded rental transactions</p>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rental ID</th>
+                                    <th>Customer</th>
+                                    <th>Vehicle</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rentals-table">
+                                <tr><td colspan="7" class="empty">Loading rentals...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <footer class="footer">
+                <span>FleetFlow · Vehicle Rental and Tracking Management System</span>
+                <span id="last-updated">Waiting for data...</span>
+            </footer>
+        </main>
+    </div>
+<script src="static/script.js"defer></script>
+</body>
+</html>
